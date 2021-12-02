@@ -1,4 +1,4 @@
-package by.du4.study.wep_app.stedent;
+package by.du4.study.wep_app.student;
 
 import java.time.LocalDate;
 
