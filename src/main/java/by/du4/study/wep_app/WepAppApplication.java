@@ -11,6 +11,4 @@ public class WepAppApplication {
 		SpringApplication.run(WepAppApplication.class, args);
 	}
 
-
-
 }
