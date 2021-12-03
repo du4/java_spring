@@ -3,6 +3,7 @@ package by.du4.study.wep_app.student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -35,5 +36,19 @@ public class StudentService {
             throw new IllegalStateException("Student with id " + id + " does't exist.");
         }
         studentRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void updateStudent(Long id, String name, String email) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new IllegalStateException("Student with id " + id + " does't exist."));
+        if (name!=null && !name.isBlank() && name.length()>0 && !student.getName().equals(name)){
+            student.setName(name);
+        }
+        if (email!=null && !email.isBlank() && email.length() > 0 && !student.getEmail().equals(email)) {
+            if(studentRepository.findStudentByEmail(email).isPresent()){
+                throw new IllegalStateException("email taken");
+            }
+            student.setEmail(email);
+        }
     }
 }
